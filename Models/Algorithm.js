@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
 const algorithmSchema = mongoose.Schema({
-    _id : mongoose.Types.ObjectId , 
-    _name : { type :String, require :true }
+    _name : { type :String, required :true }
 });
 
 module.exports.Algorithm = mongoose.model('Algorithm',algorithmSchema);
