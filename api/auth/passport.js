@@ -12,7 +12,7 @@ module.exports = (passport) => {
             try {
                 let user = await _user.getByEmail(email);
 
-                bcrypt.compare(password, user[0]._password, (error,res) => {
+                bcrypt.compare(password, user._password, (error,res) => {
                     if (error) return done(error);
                     if(res===false) new Error('Incorrect passwword')
                     return done(null,user);

@@ -25,9 +25,9 @@ router.post('/signin', (req, res,next) => {
                 'result': error
             });
         else {
-            const _token = await getToken(req.body.email,user[0]._isAdmin);
+            const _token = await getToken(req.body.email,user._isAdmin);
             res.header("x-auth-token", _token).status(200).send({
-                'result': user
+                'result': {email:user._email,name:user._name}
             });
         }
     })(req, res,next);
