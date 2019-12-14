@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/adminMODEL').Admin;
-const getToken = require('../../auth/token').getToken;
+const createToken = require('../../auth/token').createTokenAdmin;
 var passport = require('passport');
 router.post('/signup', async (req, res) => {
     try {
         const user = new User(req.body.name, req.body.email, req.body.password);
-        //user.validate();
         await user.save();
         res.status(200).send({
             'result': 'success'
@@ -25,8 +24,8 @@ router.post('/signin', (req, res,next) => {
                 'result': error
             });
         else {
-            const _token = await getToken(req.body.email,user._isAdmin);
-            res.header("x-auth-token", _token).status(200).send({
+            const _token = createToken(req.body.email);
+            res.cookie('token',_token).status(200).send({
                 'result': {email:user._email,name:user._name}
             });
         }

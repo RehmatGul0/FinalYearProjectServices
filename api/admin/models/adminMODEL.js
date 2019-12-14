@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const _user = require('../../../models/User').User;
+const adminDAO = require('../adminDAO/adminDAO').AdminDAO;
 module.exports.User = class User {
     constructor(name, email, password) {
         this.name = name;
@@ -9,29 +9,23 @@ module.exports.User = class User {
     }
     async save() {
         return new Promise(async (resolve, reject) => {
-            bcrypt.hash(this.password, 10, function (error, hash) {
+            bcrypt.hash(this.password, 10, async (error, hash)=> {
                 if (error) reject(error);
-                _user.create({
-                        _name: this.name,
-                        _email: this.email,
-                        _password: hash,
-                        _isAdmin: this.isAdmin
-                    },
-                    (error, doc) => {
-                        if (error) reject(error);
-                        else resolve(doc);
-                    }
-                )
+                try{
+                    let admin = await adminDAO.add(this,hash);
+                    resolve(admin);
+                }
+                catch(error){
+                    reject(error);
+                }
             });
         });
-
     }
-    async getByEmail(email) {
+    static async getByEmail(email) {
         return new Promise(async (resolve, reject) => {
-            let user = await _user.findOne({_email: email}).lean();
-            console.log(user);
-            if(!user) reject('No document found')
-            else resolve(user);
+            let admin = await adminDAO.getByEmail(email);
+            if(!admin) reject('No document found')
+            else resolve(admin);
         });
     }
 }
