@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/userMODEL').User;
-const getToken = require('../../auth/token').getToken;
+const getToken = require('../../auth/token');
 var passport = require('passport');
 router.post('/signup', async (req, res) => {
     try {
@@ -26,7 +26,7 @@ router.post('/signin', (req, res,next) => {
             });
         else {
             const _token = await getToken(req.body.email,user._isAdmin);
-            res.header("x-auth-token", _token).status(200).send({
+            res.header('token',req.cookies['token']).status(200).send({
                 'result': {email:user._email,name:user._name}
             });
         }

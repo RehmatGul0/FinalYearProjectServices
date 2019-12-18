@@ -1,4 +1,4 @@
-const domainDAO = require('../adminDAO/domainDAO').DomainDAO;
+const domainDAO = require('../../../sharedDAO/domainDAO').DomainDAO;
 
 module.exports.Domain = class Domain {
     constructor(name) {

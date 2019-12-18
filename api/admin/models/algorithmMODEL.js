@@ -1,4 +1,4 @@
-const algorithmDAO = require('../adminDAO/algorithmDAO').AlgorithmDAO;
+const algorithmDAO = require('../../../sharedDAO/algorithmDAO').AlgorithmDAO;
 
 module.exports.Algorithm = class Algorithm {
     constructor(name) {

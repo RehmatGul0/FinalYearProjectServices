@@ -1,14 +1,13 @@
-const questionDAO = require('../adminDAO/questionDAO').QuestionDAO;
+const questionDAO = require('../../../sharedDAO/questionDAO').QuestionDAO;
 const domain = require('../models/domainModel').Domain;
 
 module.exports.Question = class Question {
-    constructor(question, dataFilePath , answerPath, adminEmail , domainId, algorithmInfo) {
+    constructor(question , answerPath, adminEmail , domainId, modelInfoId) {
         this.question = question;
-        this.dataFilePath = dataFilePath;
         this.answerPath = answerPath;
         this.adminEmail = adminEmail;
         this.domainId = domainId;
-        this.algorithmInfo=algorithmInfo;
+        this.modelInfoId=modelInfoId;
     }
     async save() {
         return new Promise(async (resolve, reject) => {

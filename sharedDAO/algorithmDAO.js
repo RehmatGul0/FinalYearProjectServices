@@ -1,4 +1,4 @@
-const _algorithm = require('../../../models/Algorithm').Algorithm;
+const _algorithm = require('../models/Algorithm').Algorithm;
 class AlgorithmDAO {
     async add(algorithm) {
         return new Promise(async (resolve, reject) => {

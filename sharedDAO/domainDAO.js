@@ -1,4 +1,4 @@
-const _domain = require('../../../models/Domain').Domain;
+const _domain = require('../models/Domain').Domain;
 class DomainDAO {
     async add(domain) {
         return new Promise(async (resolve, reject) => {

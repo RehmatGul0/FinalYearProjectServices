@@ -1,21 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const adminCheck = require('../../../middleware/adminCheck').checkAdmin;
-const Question = require('../models/questionMODEL').Question;
 const ModelInfo  = require('../models/modelInfoModel').ModelInfo;
 
 router.use(adminCheck);
 router.post('/add', async (req, res) => {
     try {
         /*model have to be use instead of null*/
-        await ModelInfo.get(req.body.modelInfoId);
-
-
-        const question = new Question(req.body.question, req.body.answerPath, 
-            req.admin , req.body.domainId, req.body.modelInfoId);
+        const modelInfo = new ModelInfo(req.body.modelFilePath,req.body.dataFilePath, req.body.algorithmId,null);
         
-        await question.validate(req.body.domainId);
-        await question.save();
+        await modelInfo.validate(req.body.algorithmId);
+        await modelInfo.save();
 
         res.cookie('token',req.cookies['token']).status(200).send({
             'result': 'success'
@@ -29,9 +24,9 @@ router.post('/add', async (req, res) => {
 
 router.get('/get', async (req, res,next) => {
     try{
-        let questions = await Question.get();
+        let modelInfo = await ModelInfo.get();
         res.cookie('token',req.cookies['token']).status(200).send({
-            'result': questions
+            'result': modelInfo
         });
     }
     catch(error){
