@@ -7,7 +7,8 @@ router.use(adminCheck);
 router.post('/add', async (req, res) => {
     try {
         /*model have to be use instead of null*/
-        const modelInfo = new ModelInfo(req.body.modelFilePath,req.body.dataFilePath, req.body.algorithmId,null);
+        const modelInfo = new ModelInfo(req.body.modelFilePath,req.body.dataFilePath, req.body.algorithmId,
+            req.body.features,null);
         
         await modelInfo.validate(req.body.algorithmId);
         await modelInfo.save();

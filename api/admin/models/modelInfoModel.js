@@ -3,10 +3,11 @@ const modelInfoDAO = require('../../../sharedDAO/modelInfoDAO').ModelInfoDAO;
 
 
 module.exports.ModelInfo = class ModelInfo {
-    constructor(modelFilePath, dataFilePath,algorithmId, model) {
+    constructor(modelFilePath, dataFilePath,algorithmId,features, model) {
             this.modelFilePath = modelFilePath,
             this.dataFilePath = dataFilePath,
             this.algorithmId = algorithmId,
+            this.features = features,
             this.model = model;
     }
 

@@ -6,6 +6,7 @@ class ModelInfoDAO {
                 _modelFilePath : modelInfo.modelFilePath,
                 _dataFilePath : modelInfo.dataFilePath,
                 _algorithm : modelInfo.algorithmId,
+                _features : modelInfo.features,
                 _model : modelInfo.model
             },
             (error, doc) => {

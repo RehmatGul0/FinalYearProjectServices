@@ -12,9 +12,10 @@ module.exports.Question = class Question {
         let questions = await questionDAO.get();
         return questions.map(question => {
             return { '_id':question._id ,
-            'question':question._question,
-            'domainId':question._domain._id,
-            'domainName':question._domain._name};
+            '_question':question._question,
+            '_domainId':question._domain._id,
+            '_domainName':question._domain._name,
+            '_features':question._modelinfo._features};
         });
     }
 }
