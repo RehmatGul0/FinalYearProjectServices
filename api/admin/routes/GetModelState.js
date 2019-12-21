@@ -6,7 +6,7 @@ router.get('/',function (req,res) {
             let options = {
                 mode: 'text',
                 pythonOptions: ['-u'],
-                scriptPath: 'G:/FinalYear/venv/',//Path to your script
+                scriptPath: 'Education Scripts/',//Path to your script
                 args: ['/ModelingData/Modeling.csv']
             };
 
@@ -31,9 +31,8 @@ router.get('/',function (req,res) {
                                           res.send(ModelingErr);
                                       }
                                       else{
-                                          ModelState = getModelState;
                                           console.log('Model trained successfully')
-                                          res.send('Model Trained Successfully')
+                                          res.send('Model Trained Successfully');
                                       }
                                   });
                               }
