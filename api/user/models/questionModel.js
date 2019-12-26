@@ -15,7 +15,7 @@ module.exports.Question = class Question {
             '_question':question._question,
             '_domainId':question._domain._id,
             '_domainName':question._domain._name,
-            '_features':question._modelinfo._features};
+            '_features':question._modelInfo._features};
         });
     }
 }

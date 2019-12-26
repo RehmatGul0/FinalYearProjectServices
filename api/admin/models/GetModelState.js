@@ -1,26 +1,27 @@
 let {PythonShell} = require('python-shell')
 const express = require('express');
 const router = express.Router();
-router.get('/',function (req,res) {
+module.exports.model = function (modelFilePath,dataFile) {
+    return new Promise((resolve,reject) => {
             let ModelState;
             let options = {
                 mode: 'text',
                 pythonOptions: ['-u'],
-                scriptPath: 'Education Scripts/',//Path to your script
-                args: ['/ModelingData/Modeling.csv']
+                scriptPath: modelFilePath,//Path to your script
+                args: [dataFile]
             };
 
            PythonShell.run('FillEmptyValues.py',options, function (FillEmptyErr, getFillValueStatus) {
                 //On 'results' we get list of strings of all print done in your py scripts sequentially.
                 if (FillEmptyErr){
-                    res.send(FillEmptyErr);
+                    reject(FillEmptyErr);
                 }
                 else {
                     if(getFillValueStatus[0] === '200'){
                         PythonShell.run('RemoveOutliers.py',options, function (removeOutlierErr, getRemoveOutlierStatus) {
                             //On 'results' we get list of strings of all print done in your py scripts sequentially.
                             if (removeOutlierErr){
-                              res.send(removeOutlierErr)
+                              reject(removeOutlierErr)
                             }
                             else{
                               if(getRemoveOutlierStatus[0] === '200'){
@@ -28,25 +29,24 @@ router.get('/',function (req,res) {
                                       //On 'results' we get list of strings of all print done in your py scripts sequentially.
                                       if (ModelingErr){
                                           console.log(ModelingErr);
-                                          res.send(ModelingErr);
+                                          reject(ModelingErr);
                                       }
                                       else{
                                           console.log('Model trained successfully')
-                                          res.send('Model Trained Successfully');
+                                          resolve('Model Trained Successfully');
                                       }
                                   });
                               }
                               else{
-                                  res.send('Something is wrong in removing outliers')
+                                  reject('Something is wrong in removing outliers')
                               }
                             }
                         });
                     }
                     else{
-                        res.send('Something is wrong in Filling empty values')
+                        reject('Something is wrong in Filling empty values')
                     }
                 }
             });
-
-});
-module.exports = router;
+    })
+};

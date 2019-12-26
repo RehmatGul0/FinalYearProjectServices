@@ -30,4 +30,8 @@ module.exports.Algorithm = class Algorithm {
             else resolve(algorithm);
         });
     }
+
+    static async get() {
+        return await algorithmDAO.get();
+    }
 }

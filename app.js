@@ -16,7 +16,6 @@ const adminDomain = require('./api/admin/routes/domain');
 const adminAlgorithm = require('./api/admin/routes/algorithm');
 const adminQuestion = require('./api/admin/routes/question');
 const adminModelInfo = require('./api/admin/routes/modelInfo');
-const GetModelState = require('./api/admin/routes/GetModelState');
 const UserDataset = require('./api/user/routes/userdataset');
 
 mongoose.connect(process.env.db,{ useNewUrlParser: true , useUnifiedTopology: true});
@@ -37,8 +36,7 @@ app.use('/admin/domain',adminDomain);
 app.use('/admin/algorithm',adminAlgorithm);
 app.use('/admin/question',adminQuestion);
 app.use('/admin/modelinfo',adminModelInfo);
-app.use('/getModelState',GetModelState);
-app.use('/userdataset',UserDataset);
+app.use('/user/userdataset',UserDataset);
 
 
 module.exports.app = app;

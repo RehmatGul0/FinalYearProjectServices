@@ -32,4 +32,8 @@ module.exports.Domain = class Domain {
             else resolve(domain);
         });
     }
+
+    static async get() {
+        return await domainDAO.get();
+    }
 }

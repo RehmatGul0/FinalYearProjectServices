@@ -4,17 +4,15 @@ const adminCheck = require('../../../middleware/adminCheck').checkAdmin;
 const Question = require('../models/questionMODEL').Question;
 const ModelInfo  = require('../models/modelInfoModel').ModelInfo;
 
-router.use(adminCheck);
+//router.use(adminCheck);
 router.post('/add', async (req, res) => {
     try {
+        console.log(req.body)
         /*model have to be use instead of null*/
-        await ModelInfo.get(req.body.modelInfoId);
-
-
         const question = new Question(req.body.question, req.body.answerPath, 
-            req.admin , req.body.domainId, req.body.modelInfoId);
+            'req.admin' , req.body.domainId, req.body.modelInfoId);
         
-        await question.validate(req.body.domainId);
+        await question.validate(req.body.domainId,req.body.modelInfoId);
         await question.save();
 
         res.cookie('token',req.cookies['token']).status(200).send({

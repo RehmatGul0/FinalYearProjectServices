@@ -1,5 +1,6 @@
 const questionDAO = require('../../../sharedDAO/questionDAO').QuestionDAO;
 const domain = require('../models/domainModel').Domain;
+const modelInfo = require('../models/modelInfoModel').ModelInfo;
 
 module.exports.Question = class Question {
     constructor(question , answerPath, adminEmail , domainId, modelInfoId) {
@@ -19,14 +20,18 @@ module.exports.Question = class Question {
            }
         });
     }
-    async validate(domainId){
+    async validate(domainId,modelInfoId){
         return new Promise(async (resolve, reject) => {
-            if(domainId===undefined || domainId === null) reject('Invalid input')
+            if(domainId===undefined || domainId === null || modelInfoId==undefined ||modelInfoId==null) 
+                reject('Invalid input')
             try{
-                await domain.getById(domainId);
+                let _domain = modelInfo.getById(modelInfoId);
+                let _modelInfo = domain.getById(domainId);
+                let  results  = [await _modelInfo , await _domain];
                 resolve();
             }
             catch(error){
+                console.log(error)
                 reject('Invalid input')
             }
         });
