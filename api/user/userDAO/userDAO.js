@@ -2,7 +2,6 @@ const _user = require('../../../models/User').User;
 class UserDAO {
     async add(user,hash) {
         return new Promise(async (resolve, reject) => {
-            if (error) reject(error);
             _user.create({
                     _name: user.name,
                     _email: user.email,

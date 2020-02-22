@@ -12,7 +12,7 @@ router.post('/signup', async (req, res) => {
         });
     } catch (error) {
         res.status(400).send({
-            'result': error
+            'result': 'error'
         });
     }
 });
@@ -25,8 +25,8 @@ router.post('/signin', (req, res,next) => {
             });
         else {
             const _token = createToken(req.body.email);
-            res.cookie('token',_token).status(200).send({
-                'result': {email:user._email,name:user._name}
+            res.status(200).send({
+                'result': {email:user._email,name:user._name,token:_token}
             });
         }
     })(req, res,next);

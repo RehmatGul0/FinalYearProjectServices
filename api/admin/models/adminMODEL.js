@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const adminDAO = require('../adminDAO/adminDAO').AdminDAO;
-module.exports.User = class User {
+module.exports.Admin = class User {
     constructor(name, email, password) {
         this.name = name;
         this.email = email;
@@ -12,10 +12,12 @@ module.exports.User = class User {
             bcrypt.hash(this.password, 10, async (error, hash)=> {
                 if (error) reject(error);
                 try{
+                    console.log()
                     let admin = await adminDAO.add(this,hash);
                     resolve(admin);
                 }
                 catch(error){
+                    console.log(error)
                     reject(error);
                 }
             });
